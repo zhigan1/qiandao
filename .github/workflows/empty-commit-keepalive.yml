@@ -1,0 +1,33 @@
+name: 空提交保活
+
+on:
+  schedule:
+    - cron: "0 9 1 * *"   # 每月 1 日 UTC，防止 Actions 因仓库长期不活跃被禁用
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+env:
+  BRANCH_NAME: heartbeat
+
+jobs:
+  empty-commit-keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 初始化空仓库
+        run: |
+          git init .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+
+      - name: 创建孤儿分支并空提交
+        run: |
+          git checkout --orphan "${BRANCH_NAME}"
+          git commit --allow-empty -m "chore(heartbeat): monthly empty commit $(date -u +%Y-%m-%d)"
+          git branch -M "${BRANCH_NAME}"
+
+      - name: 强制推送
+        run: |
+          git push -f origin "${BRANCH_NAME}"
