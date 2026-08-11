@@ -2,8 +2,7 @@ name: Quark 签到 (.NET)
 
 on:
   schedule:
-    - cron: '0 0 * * *'   # 北京时间 08:00 (UTC+8)
-    - cron: '0 5 * * *'   # 北京时间 13:00 (UTC+8)
+    - cron: '0 2 * * *'   # 北京时间 10:00 (UTC+8)
   workflow_dispatch:
 
 permissions:
@@ -55,18 +54,11 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 随机延迟（早上）
-        if: github.event.schedule == '0 0 * * *'
+      - name: 随机延迟（定时或手动触发）
+        if: github.event.schedule == '0 2 * * *' || github.event_name == 'workflow_dispatch'
         run: |
           delay=$((RANDOM % 60))
-          echo "早上签到，延迟 $delay 秒后开始。"
-          sleep $delay
-
-      - name: 随机延迟（下午或手动触发）
-        if: github.event.schedule == '0 5 * * *' || github.event_name == 'workflow_dispatch'
-        run: |
-          delay=$((RANDOM % 30))
-          echo "下午兜底或手动触发，延迟 $delay 秒后开始。"
+          echo "定时或手动触发，延迟 $delay 秒后开始。"
           sleep $delay
 
       - name: 安装 .NET SDK
