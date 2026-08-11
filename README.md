@@ -1,6 +1,6 @@
 # 夸克网盘自动签到 (.NET 版)
 
-基于 [Quark_Auot_Check_In](https://github.com/zhigan1/Quark_Auot_Check_In) 的 Python 脚本重写为 .NET 8 控制台应用，签到接口与行为保持一致，并内置 GitHub Actions 工作流。
+.NET 8 控制台应用，签到接口与行为保持一致，并内置 GitHub Actions 工作流。
 
 > 本项目仅供学习交流，请勿用于非法用途。
 
@@ -82,4 +82,3 @@ git push -u origin main
 
 - Cookie 或 `kps`、`sign`、`vcode` 过期后需要重新抓取并更新 Secret。
 - 频繁手动触发可能被目标服务限流，请谨慎操作。
-- 本项目在 MIT 协议下发布，重写自 MIT 协议的 [Quark_Auot_Check_In](https://github.com/zhigan1/Quark_Auot_Check_In)，保留原作者版权声明。
