@@ -2,7 +2,7 @@ name: Quark 签到 (.NET)
 
 on:
   schedule:
-    - cron: '0 9 * * *'   # 北京时间 10:00 (UTC+8)
+    - cron: '0 17 * * *'   # 北京时间 10:00 (UTC+8)
   workflow_dispatch:
 
 permissions:
@@ -54,8 +54,7 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 随机延迟（定时或手动触发）
-        if: github.event.schedule == '0 2 * * *' || github.event_name == 'workflow_dispatch'
+      - name: 随机延迟（定时或手动触发）       
         run: |
           delay=$((RANDOM % 60))
           echo "定时或手动触发，延迟 $delay 秒后开始。"
