@@ -2,7 +2,7 @@ name: Quark 签到 (.NET)
 
 on:
   schedule:
-    - cron: '0 17 * * *'   # 北京时间 10:00 (UTC+8)
+    - cron: '0 23 * * *'   # 北京时间 10:00 (UTC+8)
   workflow_dispatch:
 
 permissions:
